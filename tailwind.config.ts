@@ -27,7 +27,7 @@ const config: Config = {
     },
     fontFamily: {
       sans: ['Jost', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
+      serif: ['Inter', 'serif'],
     },
     extend: {
       spacing: {
