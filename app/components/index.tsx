@@ -1,1 +1,1 @@
-export { default as ImageCreation } from './ImageCreation'
+export { default as ImageCreationScreen } from './ImageCreationScreen'

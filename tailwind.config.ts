@@ -8,28 +8,23 @@ const config: Config = {
     './node_modules/preline/dist/*.js',
   ],
   theme: {
-    screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
-    },
-    colors: {
-      blue: '#1fb6ff',
-      purple: '#6221e6',
-      pink: '#fedadb',
-      'gray-dark': '#273444',
-      'gray-dark-2': '#302939',
-      gray: '#333333',
-      'gray-light': '#c7c6c6',
-      white: '#ffffff',
-      black: '#1e1e1e',
-    },
-    fontFamily: {
-      sans: ['Jost', 'sans-serif'],
-      serif: ['Inter', 'serif'],
-    },
     extend: {
+      colors: {
+        primary: '#6750A4',
+        secondary: '#333333',
+        purple: '#6221e6',
+        pink: '#fedadb',
+        'gray-dark': '#273444',
+        'gray-dark-2': '#302939',
+        'gray-light': '#c7c6c6',
+        'gray-light-2': '#79747E',
+        white: '#ffffff',
+        black: '#1e1e1e',
+      },
+      fontFamily: {
+        sans: ['Jost', 'sans-serif'],
+        serif: ['Inter', 'serif'],
+      },
       spacing: {
         '128': '32rem',
         '144': '36rem',
@@ -44,6 +39,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('preline/plugin')],
+  plugins: [require('preline/plugin'), require('@tailwindcss/forms')],
 }
 export default config
