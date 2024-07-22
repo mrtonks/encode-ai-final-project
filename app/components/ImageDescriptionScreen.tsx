@@ -3,7 +3,6 @@ import { ChangeEvent } from 'react'
 
 interface Props {
   progress: number
-  wordCount: number
   maxWords: number
   description: string
   onUpdateDescription: (event: ChangeEvent<HTMLTextAreaElement>) => void
@@ -11,13 +10,12 @@ interface Props {
 
 export default function ImageDescriptionScreen({
   progress,
-  wordCount,
   maxWords,
   description,
   onUpdateDescription,
 }: Props) {
   return (
-    <div className="flex flex-col md:w-2/6 justify-center items-center m-auto">
+    <div className="flex flex-col md:w-2/6 justify-center items-center mx-auto my-10">
       {/* Title */}
       <Image
         src="/images/logo215x171.png"
@@ -46,13 +44,13 @@ export default function ImageDescriptionScreen({
       <div className="md:w-80 w-full mt-5">
         <textarea
           id="hs-textarea-with-corner-hint"
-          className="mb-2 py-3 px-4 block w-full bg-pink border-gray-300 rounded-lg text-sm focus:border-purple focus:ring-purple disabled:opacity-50 disabled:pointer-events-none shadow-md"
+          className="mb-2 py-3 px-4 block w-full bg-tertiary border-gray-300 rounded-lg text-sm focus:border-purple focus:ring-purple disabled:opacity-50 disabled:pointer-events-none shadow-md"
           rows={3}
           placeholder="Additional character description..."
           value={description}
           onChange={onUpdateDescription}></textarea>
         <span className="flex w-40 rounded py-1 pl-2 bg-gray-800 mb-2 text-xs text-white">
-          {`${wordCount}/${maxWords} words left`}
+          {`${maxWords} words left`}
         </span>
       </div>
     </div>

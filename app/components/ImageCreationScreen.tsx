@@ -3,6 +3,7 @@ import {
   ImageSelectionsScreen,
   ImageDescriptionScreen,
   ImageReviewScreen,
+  ImageCompletedScreen,
 } from '.'
 
 interface Selections {
@@ -43,19 +44,16 @@ export default function ImageCreation({ onPreviousClick }: Props) {
     review: {
       progress: 75,
       previous: 'description',
-      next: 'finished',
+      next: 'completed',
     },
-    finished: {
+    completed: {
       progress: 100,
       previous: 'review',
       next: '',
     },
   }
 
-  const maxWords: number = 75
-
   const [view, setView] = useState<Step>(steps.selections)
-  const [wordCount, setWordCount] = useState<number>(0)
   const [progress, setProgress] = useState<number>(steps.selections.progress)
   const [selections, setSelections] = useState<Selections>({
     imageStyle: [],
@@ -67,12 +65,32 @@ export default function ImageCreation({ onPreviousClick }: Props) {
     facialFeatures: '',
     description: '',
   })
+  const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false)
 
   useEffect(() => {
     document.body.style.backgroundColor = '#E4D9FF'
   }, [])
 
-  const updateSelection = (key: SelectionKey, value: string) => {
+  const countWords = (selections: Selections): number => {
+    let totalWords = 0
+
+    Object.values(selections).forEach((value) => {
+      if (typeof value === 'string') {
+        totalWords += value.trim().split(/\s+/).filter(Boolean).length
+      } else if (Array.isArray(value)) {
+        totalWords += value.reduce(
+          (acc, str) => acc + str.trim().split(/\s+/).filter(Boolean).length,
+          0
+        )
+      }
+    })
+
+    return totalWords
+  }
+
+  const maxWords: number = 75 - countWords(selections)
+
+  const handleUpdateSelection = (key: SelectionKey, value: string) => {
     let newValue: any
 
     if (key === 'imageStyle') {
@@ -92,14 +110,14 @@ export default function ImageCreation({ onPreviousClick }: Props) {
     }))
   }
 
-  const removeSelection = (key: SelectionKey) => {
+  const handleRemoveSelection = (key: SelectionKey) => {
     setSelections((prevSelections) => ({
       ...prevSelections,
       [key]: [],
     }))
   }
 
-  const updateDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleUpdateDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value
     const words = value.match(/\b\w+\b/g) || [] // Match only words
 
@@ -108,14 +126,13 @@ export default function ImageCreation({ onPreviousClick }: Props) {
         ...prevSelections,
         description: value,
       }))
-      setWordCount(words.length)
     } else {
       // Prevent additional input by ignoring the new value
       event.preventDefault()
     }
   }
 
-  const removePrompt = (key: SelectionKey, value: string) => {
+  const handleRemovePrompt = (key: SelectionKey, value: string) => {
     let newValue: any
 
     if (key === 'imageStyle') {
@@ -131,10 +148,19 @@ export default function ImageCreation({ onPreviousClick }: Props) {
     }))
   }
 
-  useEffect(() => {
-    console.log(selections)
-    console.log(view)
+  const handleGenerateImage = () => {
+    setIsLoadingImage(true)
 
+    setTimeout(() => {
+      setIsLoadingImage(false)
+      setView(steps.completed)
+    }, 2000)
+    // TODO: generate image (not regeneration)
+  }
+
+  useEffect(() => {
+    // console.log(selections)
+    // console.log(view)
     setProgress(view.progress)
   }, [view])
 
@@ -146,22 +172,25 @@ export default function ImageCreation({ onPreviousClick }: Props) {
           <ImageSelectionsScreen
             progress={progress}
             selections={selections}
-            onUpdateSelection={updateSelection}
-            onRemoveSelection={removeSelection}></ImageSelectionsScreen>
+            onUpdateSelection={handleUpdateSelection}
+            onRemoveSelection={handleRemoveSelection}></ImageSelectionsScreen>
         ) : view.previous === 'selections' ? (
           <ImageDescriptionScreen
             progress={progress}
             maxWords={maxWords}
-            wordCount={wordCount}
             description={selections.description}
-            onUpdateDescription={updateDescription}></ImageDescriptionScreen>
+            onUpdateDescription={
+              handleUpdateDescription
+            }></ImageDescriptionScreen>
         ) : view.previous === 'description' ? (
           <ImageReviewScreen
             progress={progress}
             selections={selections}
-            onRemovePrompt={removePrompt}></ImageReviewScreen>
+            onRemovePrompt={handleRemovePrompt}></ImageReviewScreen>
         ) : (
-          <div></div>
+          view.previous === 'review' && (
+            <ImageCompletedScreen progress={progress}></ImageCompletedScreen>
+          )
         )}
       </div>
       {/* Action buttons */}
@@ -182,17 +211,37 @@ export default function ImageCreation({ onPreviousClick }: Props) {
           </button>
         </div>
         <div>
-          <button
-            type="button"
-            className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-light-2 text-primary hover:border-purple hover:text-purple disabled:opacity-50 disabled:pointer-events-none"
-            disabled={!selections.imageStyle.length}
-            onClick={() => {
-              const next = view.next
-              setView(steps[next])
-            }}>
-            Next
-            <span className="material-symbols-outlined">chevron_right</span>
-          </button>
+          {!isLoadingImage ? (
+            <button
+              type="button"
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-light-2 text-primary hover:border-purple hover:text-purple disabled:opacity-50 disabled:pointer-events-none"
+              disabled={!selections.imageStyle.length}
+              onClick={() => {
+                const next = view.next
+
+                if (next === 'completed') {
+                  handleGenerateImage()
+                  return
+                }
+                setView(steps[next])
+              }}>
+              Next
+              <span className="material-symbols-outlined">chevron_right</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-light-2 text-primary hover:border-purple hover:text-purple disabled:opacity-50 disabled:pointer-events-none"
+              disabled>
+              <span
+                className="animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-primary rounded-full"
+                role="status"
+                aria-label="loading">
+                <span className="sr-only">Loading...</span>
+              </span>
+              Loading
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -182,7 +182,7 @@ export default function ImageSelectionScreen({
   const [activeTrait, setActiveTrait] = useState<SelectionKey | undefined>()
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row mx-auto my-10">
       {/* Title */}
       <div className="flex md:w-3/6 md:pl-20 md:pr-40 px-10 md:mt-0 mt-5 flex-col justify-center">
         <div className="flex flex-col flex-grow items-center justify-center">
@@ -245,7 +245,7 @@ export default function ImageSelectionScreen({
                   activeTab === tab.id ? 'block' : 'hidden'
                 }`}>
                 {tab.type === TAB_TYPES.MULTIPLE_CHOICE && tab.isEnabled ? (
-                  <div className="flex flex-col bg-pink border border-pink shadow-sm rounded-xl p-4 md:p-5">
+                  <div className="flex flex-col bg-tertiary border border-tertiary shadow-sm rounded-xl p-4 md:p-5">
                     {tab.multiple_choice_options.map((option, index) => (
                       <div key={index} className="flex py-3">
                         <label
@@ -255,7 +255,7 @@ export default function ImageSelectionScreen({
                         </label>
                         <input
                           type="checkbox"
-                          className="shrink-0 border-2 rounded bg-pink text-primary focus:ring-purple disabled:opacity-50 disabled:pointer-events-none"
+                          className="shrink-0 border-2 rounded bg-tertiary text-primary focus:ring-purple disabled:opacity-50 disabled:pointer-events-none"
                           id={`checkbox-${option}`}
                           disabled={
                             !!tab.maxSelections &&
@@ -277,7 +277,7 @@ export default function ImageSelectionScreen({
                 ) : (
                   tab.type === TAB_TYPES.ARRAY_MULTIPLE_CHOICE &&
                   tab.isEnabled && (
-                    <div className="flex flex-col bg-pink border border-pink shadow-sm rounded-xl p-4 md:p-5">
+                    <div className="flex flex-col bg-tertiary border border-tertiary shadow-sm rounded-xl p-4 md:p-5">
                       {!activeTrait ? (
                         Object.entries(tab.array_options).map(
                           ([key, option], index) => (
@@ -287,7 +287,7 @@ export default function ImageSelectionScreen({
                               <input
                                 type="checkbox"
                                 id={`toggle-${option}`}
-                                className="relative w-[3.25rem] h-7 p-px bg-pink text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-primary checked:border-purple focus:checked:border-purple  before:inline-block before:size-6 before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
+                                className="relative w-[3.25rem] h-7 p-px bg-tertiary text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-primary checked:border-purple focus:checked:border-purple  before:inline-block before:size-6 before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
                                 checked={
                                   !!selections[key as SelectionKey].length
                                 }
@@ -325,7 +325,7 @@ export default function ImageSelectionScreen({
                             <input
                               type="checkbox"
                               id={`toggle-${tab.array_options[activeTrait].label}`}
-                              className="relative w-[3.25rem] h-7 p-px bg-pink text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-primary checked:border-purple focus:checked:border-purple  before:inline-block before:size-6 before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
+                              className="relative w-[3.25rem] h-7 p-px bg-tertiary text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-primary checked:border-purple focus:checked:border-purple  before:inline-block before:size-6 before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
                               checked={
                                 !!selections[activeTrait as SelectionKey].length
                               }
@@ -346,7 +346,7 @@ export default function ImageSelectionScreen({
                                   type="radio"
                                   id={`radio-${option}`}
                                   name={`radio-${activeTrait}`}
-                                  className="shrink-0 mt-0.5 bg-pink rounded-full text-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
+                                  className="shrink-0 mt-0.5 bg-tertiary rounded-full text-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
                                   checked={
                                     selections[activeTrait as SelectionKey] ===
                                     option

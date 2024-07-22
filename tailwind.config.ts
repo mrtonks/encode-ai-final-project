@@ -12,8 +12,8 @@ const config: Config = {
       colors: {
         primary: '#6750A4',
         secondary: '#333333',
+        tertiary: '#fedadb',
         purple: '#6221e6',
-        pink: '#fedadb',
         'gray-dark': '#273444',
         'gray-dark-2': '#302939',
         'gray-light': '#c7c6c6',

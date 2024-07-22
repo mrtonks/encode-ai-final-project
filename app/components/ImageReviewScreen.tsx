@@ -46,7 +46,7 @@ export default function ImageReviewScreen({
   }
 
   return (
-    <div className="flex flex-col md:w-2/6 justify-center items-center m-auto">
+    <div className="flex flex-col md:w-2/6 justify-center items-center mx-auto my-10">
       {/* Title */}
       <Image
         src="/images/logo215x171.png"
@@ -76,10 +76,10 @@ export default function ImageReviewScreen({
           .filter(([, value]) => !!value.toString())
           .map(([key, value], index) =>
             key === 'imageStyle' ? (
-              value.map((val: string) => (
+              value.map((val: string, idx: number) => (
                 <span
-                  key={index}
-                  className="inline-flex items-center m-2 gap-x-1.5 py-1.5 ps-3 pe-2 rounded-md text-sm font-medium bg-pink text-gray-600 border border-gray-500">
+                  key={`${key}-${idx}`}
+                  className="inline-flex items-center m-2 gap-x-1.5 py-1.5 ps-3 pe-2 rounded-md text-sm font-medium bg-tertiary text-gray-600 border border-gray-500">
                   <span
                     className="material-symbols-outlined"
                     style={styles.icons}>
@@ -97,8 +97,8 @@ export default function ImageReviewScreen({
               ))
             ) : (
               <span
-                key={index}
-                className="inline-flex items-center m-2 gap-x-1.5 py-1.5 ps-3 pe-2 rounded-md text-sm font-medium bg-pink text-gray-600 border border-gray-500">
+                key={`${key}-${index}`}
+                className="inline-flex items-center m-2 gap-x-1.5 py-1.5 ps-3 pe-2 rounded-md text-sm font-medium bg-tertiary text-gray-600 border border-gray-500">
                 <span
                   className="material-symbols-outlined"
                   style={styles.icons}>
