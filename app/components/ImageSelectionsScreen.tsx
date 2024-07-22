@@ -15,14 +15,14 @@ interface Selections {
 type SelectionKey = keyof Selections
 
 interface ArrayOption {
-  name: keyof Selections
+  name: SelectionKey
   label: string
   options: string[]
 }
 
 interface Tab {
   id: number
-  name: keyof Selections | undefined
+  name: SelectionKey | undefined
   label: string
   icon: string
   type: string
@@ -42,7 +42,7 @@ const tabs: Record<string, Tab> = {
     id: 0,
     name: 'imageStyle',
     label: 'Image style',
-    icon: 'add_circle',
+    icon: 'image',
     type: TAB_TYPES.MULTIPLE_CHOICE,
     isEnabled: true,
     maxSelections: 2,
@@ -166,14 +166,14 @@ const tabs: Record<string, Tab> = {
 }
 
 interface Props {
-  step: number
+  progress: number
   selections: Selections
-  onUpdateSelection: (key: keyof Selections, value: string) => void
-  onRemoveSelection: (key: keyof Selections) => void
+  onUpdateSelection: (key: SelectionKey, value: string) => void
+  onRemoveSelection: (key: SelectionKey) => void
 }
 
 export default function ImageSelectionScreen({
-  step,
+  progress,
   selections,
   onUpdateSelection,
   onRemoveSelection,
@@ -182,7 +182,7 @@ export default function ImageSelectionScreen({
   const [activeTrait, setActiveTrait] = useState<SelectionKey | undefined>()
 
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row">
       {/* Title */}
       <div className="flex md:w-3/6 md:pl-20 md:pr-40 px-10 md:mt-0 mt-5 flex-col justify-center">
         <div className="flex flex-col flex-grow items-center justify-center">
@@ -198,12 +198,12 @@ export default function ImageSelectionScreen({
             <div
               className="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
               role="progressbar"
-              aria-valuenow={step}
+              aria-valuenow={progress}
               aria-valuemin={0}
               aria-valuemax={100}>
               <div
                 className="flex flex-col justify-center rounded-full overflow-hidden bg-primary text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500"
-                style={{ width: `${step}%` }}></div>
+                style={{ width: `${progress}%` }}></div>
             </div>
           </div>
           <p className="md:text-4xl text-lg font-sans font-bold text-center">
@@ -259,18 +259,16 @@ export default function ImageSelectionScreen({
                           id={`checkbox-${option}`}
                           disabled={
                             !!tab.maxSelections &&
-                            !selections[key as keyof Selections].includes(
-                              option
-                            ) &&
-                            selections[key as keyof Selections].length >=
+                            !selections[key as SelectionKey].includes(option) &&
+                            selections[key as SelectionKey].length >=
                               tab.maxSelections
                           }
-                          checked={selections[key as keyof Selections].includes(
+                          checked={selections[key as SelectionKey].includes(
                             option
                           )}
                           onChange={() => {
                             if (!tab.name) return
-                            onUpdateSelection(key as keyof Selections, option)
+                            onUpdateSelection(key as SelectionKey, option)
                           }}
                         />
                       </div>
@@ -291,15 +289,13 @@ export default function ImageSelectionScreen({
                                 id={`toggle-${option}`}
                                 className="relative w-[3.25rem] h-7 p-px bg-pink text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-primary checked:border-purple focus:checked:border-purple  before:inline-block before:size-6 before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
                                 checked={
-                                  !!selections[key as keyof Selections].length
+                                  !!selections[key as SelectionKey].length
                                 }
                                 onChange={() => {
-                                  if (
-                                    !selections[key as keyof Selections].length
-                                  ) {
+                                  if (!selections[key as SelectionKey].length) {
                                     setActiveTrait(option.name)
                                   }
-                                  onRemoveSelection(key as keyof Selections)
+                                  onRemoveSelection(key as SelectionKey)
                                 }}
                               />
                               <div
@@ -331,13 +327,10 @@ export default function ImageSelectionScreen({
                               id={`toggle-${tab.array_options[activeTrait].label}`}
                               className="relative w-[3.25rem] h-7 p-px bg-pink text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-primary checked:border-purple focus:checked:border-purple  before:inline-block before:size-6 before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
                               checked={
-                                !!selections[activeTrait as keyof Selections]
-                                  .length
+                                !!selections[activeTrait as SelectionKey].length
                               }
                               onChange={() =>
-                                onRemoveSelection(
-                                  activeTrait as keyof Selections
-                                )
+                                onRemoveSelection(activeTrait as SelectionKey)
                               }
                             />
                           </div>
@@ -355,13 +348,12 @@ export default function ImageSelectionScreen({
                                   name={`radio-${activeTrait}`}
                                   className="shrink-0 mt-0.5 bg-pink rounded-full text-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
                                   checked={
-                                    selections[
-                                      activeTrait as keyof Selections
-                                    ] === option
+                                    selections[activeTrait as SelectionKey] ===
+                                    option
                                   }
                                   onChange={() =>
                                     onUpdateSelection(
-                                      activeTrait as keyof Selections,
+                                      activeTrait as SelectionKey,
                                       option
                                     )
                                   }

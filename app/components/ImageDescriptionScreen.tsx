@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { ChangeEvent } from 'react'
 
 interface Props {
-  step: number
+  progress: number
   wordCount: number
   maxWords: number
   description: string
@@ -10,14 +10,14 @@ interface Props {
 }
 
 export default function ImageDescriptionScreen({
-  step,
+  progress,
   wordCount,
   maxWords,
   description,
   onUpdateDescription,
 }: Props) {
   return (
-    <div className="flex flex-col md:w-2/6 justify-center items-center mx-auto">
+    <div className="flex flex-col md:w-2/6 justify-center items-center m-auto">
       {/* Title */}
       <Image
         src="/images/logo215x171.png"
@@ -31,12 +31,12 @@ export default function ImageDescriptionScreen({
         <div
           className="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
           role="progressbar"
-          aria-valuenow={step}
+          aria-valuenow={progress}
           aria-valuemin={0}
           aria-valuemax={100}>
           <div
             className="flex flex-col justify-center rounded-full overflow-hidden bg-primary text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500"
-            style={{ width: `${step}%` }}></div>
+            style={{ width: `${progress}%` }}></div>
         </div>
       </div>
       <p className="md:text-4xl text-lg font-sans font-bold text-center">

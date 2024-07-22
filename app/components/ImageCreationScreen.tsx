@@ -1,5 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import { ImageSelectionsScreen, ImageDescriptionScreen } from '.'
+import {
+  ImageSelectionsScreen,
+  ImageDescriptionScreen,
+  ImageReviewScreen,
+} from '.'
 
 interface Selections {
   imageStyle: string[] // or use another appropriate type instead of string
@@ -11,6 +15,8 @@ interface Selections {
   facialFeatures: string
   description: string
 }
+
+type SelectionKey = keyof Selections
 
 interface Step {
   progress: number
@@ -66,27 +72,27 @@ export default function ImageCreation({ onPreviousClick }: Props) {
     document.body.style.backgroundColor = '#E4D9FF'
   }, [])
 
-  const updateSelection = (key: keyof Selections, value: string) => {
-    let newValues: any
+  const updateSelection = (key: SelectionKey, value: string) => {
+    let newValue: any
 
     if (key === 'imageStyle') {
-      const currentValues = [...selections[key]]
+      const currentValues = [...selections.imageStyle]
       if (currentValues.includes(value)) {
-        newValues = currentValues.filter((v) => v !== value)
+        newValue = currentValues.filter((v) => v !== value)
       } else {
-        newValues = [...currentValues, value]
+        newValue = [...currentValues, value]
       }
     } else {
-      newValues = value
+      newValue = value
     }
 
     setSelections((prevSelections) => ({
       ...prevSelections,
-      [key]: newValues,
+      [key]: newValue,
     }))
   }
 
-  const removeSelection = (key: keyof Selections) => {
+  const removeSelection = (key: SelectionKey) => {
     setSelections((prevSelections) => ({
       ...prevSelections,
       [key]: [],
@@ -109,6 +115,22 @@ export default function ImageCreation({ onPreviousClick }: Props) {
     }
   }
 
+  const removePrompt = (key: SelectionKey, value: string) => {
+    let newValue: any
+
+    if (key === 'imageStyle') {
+      const currentValues = [...selections.imageStyle]
+      newValue = currentValues.filter((v) => v !== value)
+    } else {
+      newValue = ''
+    }
+
+    setSelections((prevSelections) => ({
+      ...prevSelections,
+      [key]: newValue,
+    }))
+  }
+
   useEffect(() => {
     console.log(selections)
     console.log(view)
@@ -119,20 +141,25 @@ export default function ImageCreation({ onPreviousClick }: Props) {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Main area */}
-      <div className="flex md:h-5/6 md:flex-row flex-col">
+      <div className="flex flex-grow md:flex-row flex-col">
         {!view.previous ? (
           <ImageSelectionsScreen
-            step={progress}
+            progress={progress}
             selections={selections}
             onUpdateSelection={updateSelection}
             onRemoveSelection={removeSelection}></ImageSelectionsScreen>
         ) : view.previous === 'selections' ? (
           <ImageDescriptionScreen
-            step={progress}
+            progress={progress}
             maxWords={maxWords}
             wordCount={wordCount}
             description={selections.description}
             onUpdateDescription={updateDescription}></ImageDescriptionScreen>
+        ) : view.previous === 'description' ? (
+          <ImageReviewScreen
+            progress={progress}
+            selections={selections}
+            onRemovePrompt={removePrompt}></ImageReviewScreen>
         ) : (
           <div></div>
         )}
