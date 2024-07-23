@@ -66,6 +66,10 @@ export default function ImageCreation({ onPreviousClick }: Props) {
     description: '',
   })
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false)
+  const [base64Image, setBase64Image] = useState<string>(
+    '/images/logo215x171.png'
+  )
+  const [isDownloading, setIsDownloading] = useState<boolean>(false)
 
   useEffect(() => {
     document.body.style.backgroundColor = '#E4D9FF'
@@ -151,11 +155,53 @@ export default function ImageCreation({ onPreviousClick }: Props) {
   const handleGenerateImage = () => {
     setIsLoadingImage(true)
 
+    let prompts: string = ''
+    Object.values(selections).forEach((value) => {
+      if (typeof value === 'string') {
+        prompts += ' ' + value.trim().split(/\s+/).filter(Boolean)
+      } else if (Array.isArray(value)) {
+        prompts +=
+          ' ' +
+          value.reduce(
+            (acc, str) => acc + ' ' + str.trim().split(/\s+/).filter(Boolean),
+            ''
+          )
+      }
+    })
+
+    const cleanedPrompts: string = prompts.replace(/,/g, ' ')
+
     setTimeout(() => {
       setIsLoadingImage(false)
+      alert(cleanedPrompts)
       setView(steps.completed)
-    }, 2000)
+    }, 1000)
     // TODO: generate image (not regeneration)
+  }
+
+  const handleRegenerateImage = (
+    prompts: string = '',
+    negativePrompts: string = ''
+  ) => {
+    setIsLoadingImage(true)
+    setTimeout(() => {
+      alert('regenerate image')
+      setIsLoadingImage(false)
+    }, 2000)
+
+    // TODO: regenerate image using the current `base64Image`
+  }
+
+  const handleDownload = () => {
+    setIsDownloading(true)
+    // const link = document.createElement('a')
+    // link.href = base64Image
+    // link.download = 'character-image-sample.png'
+    // document.body.appendChild(link)
+    // link.click()
+    // document.body.removeChild(link)
+    alert('downloading')
+    setIsDownloading(false)
   }
 
   useEffect(() => {
@@ -189,7 +235,13 @@ export default function ImageCreation({ onPreviousClick }: Props) {
             onRemovePrompt={handleRemovePrompt}></ImageReviewScreen>
         ) : (
           view.previous === 'review' && (
-            <ImageCompletedScreen progress={progress}></ImageCompletedScreen>
+            <ImageCompletedScreen
+              progress={progress}
+              base64Image={base64Image}
+              isDownloading={isDownloading}
+              isLoading={isLoadingImage}
+              onDownload={handleDownload}
+              onRegenerateImage={handleRegenerateImage}></ImageCompletedScreen>
           )
         )}
       </div>
@@ -219,7 +271,10 @@ export default function ImageCreation({ onPreviousClick }: Props) {
               onClick={() => {
                 const next = view.next
 
-                if (next === 'completed') {
+                if (!next) {
+                  alert('backstory')
+                  return
+                } else if (next === 'completed') {
                   handleGenerateImage()
                   return
                 }

@@ -49,7 +49,7 @@ export default function ImageDescriptionScreen({
           placeholder="Additional character description..."
           value={description}
           onChange={onUpdateDescription}></textarea>
-        <span className="flex w-40 rounded py-1 pl-2 bg-gray-800 mb-2 text-xs text-white">
+        <span className="flex w-28 rounded py-1 pl-2 bg-gray-800 mb-2 text-xs text-white">
           {`${maxWords} words left`}
         </span>
       </div>
