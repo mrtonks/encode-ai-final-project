@@ -4,7 +4,7 @@ import {
   ImageDescriptionScreen,
   ImageReviewScreen,
   ImageCompletedScreen,
-} from '.'
+} from './ImageCreationScreens'
 
 interface Selections {
   imageStyle: string[] // or use another appropriate type instead of string
@@ -26,10 +26,14 @@ interface Step {
 }
 
 interface Props {
-  onPreviousClick: () => void
+  onReturnHome: () => void
+  onStartBackstory: (image: string) => void
 }
 
-export default function ImageCreation({ onPreviousClick }: Props) {
+export default function ImageCreation({
+  onReturnHome,
+  onStartBackstory,
+}: Props) {
   const steps: Record<string, Step> = {
     selections: {
       progress: 25,
@@ -67,8 +71,8 @@ export default function ImageCreation({ onPreviousClick }: Props) {
   })
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false)
   const [base64Image, setBase64Image] = useState<string>(
-    '/images/logo215x171.png'
-  )
+    '/images/character-image-sample.png'
+  ) // remove default
   const [isDownloading, setIsDownloading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -160,12 +164,10 @@ export default function ImageCreation({ onPreviousClick }: Props) {
       if (typeof value === 'string') {
         prompts += ' ' + value.trim().split(/\s+/).filter(Boolean)
       } else if (Array.isArray(value)) {
-        prompts +=
-          ' ' +
-          value.reduce(
-            (acc, str) => acc + ' ' + str.trim().split(/\s+/).filter(Boolean),
-            ''
-          )
+        prompts += value.reduce(
+          (acc, str) => acc + ' ' + str.trim().split(/\s+/).filter(Boolean),
+          ''
+        )
       }
     })
 
@@ -205,15 +207,13 @@ export default function ImageCreation({ onPreviousClick }: Props) {
   }
 
   useEffect(() => {
-    // console.log(selections)
-    // console.log(view)
     setProgress(view.progress)
   }, [view])
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col flex-grow md:my-0 my-5">
       {/* Main area */}
-      <div className="flex flex-grow md:flex-row flex-col">
+      <div className="flex flex-grow md:flex-row flex-col m-auto">
         {!view.previous ? (
           <ImageSelectionsScreen
             progress={progress}
@@ -246,14 +246,14 @@ export default function ImageCreation({ onPreviousClick }: Props) {
         )}
       </div>
       {/* Action buttons */}
-      <div className="flex h-1/6 justify-between">
+      <div className="flex flex-row h-1/6 justify-between items-center">
         <div>
           <button
             type="button"
             className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-light-2 text-primary hover:border-purple hover:text-purple disabled:opacity-50 disabled:pointer-events-none"
             onClick={() => {
               if (!view.previous) {
-                onPreviousClick()
+                onReturnHome()
               } else {
                 setView(steps[view.previous])
               }
@@ -272,7 +272,7 @@ export default function ImageCreation({ onPreviousClick }: Props) {
                 const next = view.next
 
                 if (!next) {
-                  alert('backstory')
+                  onStartBackstory(base64Image)
                   return
                 } else if (next === 'completed') {
                   handleGenerateImage()

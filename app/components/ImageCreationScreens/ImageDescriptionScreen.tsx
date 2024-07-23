@@ -15,7 +15,7 @@ export default function ImageDescriptionScreen({
   onUpdateDescription,
 }: Props) {
   return (
-    <div className="flex flex-col md:w-2/6 justify-center items-center mx-auto my-10">
+    <div className="flex flex-col md:w-3/6 justify-center items-center mx-auto">
       {/* Title */}
       <Image
         src="/images/logo215x171.png"
@@ -43,7 +43,7 @@ export default function ImageDescriptionScreen({
       {/* Description */}
       <div className="md:w-80 w-full mt-5">
         <textarea
-          id="hs-textarea-with-corner-hint"
+          id="description"
           className="mb-2 py-3 px-4 block w-full bg-tertiary border-gray-300 rounded-lg text-sm focus:border-purple focus:ring-purple disabled:opacity-50 disabled:pointer-events-none shadow-md"
           rows={3}
           placeholder="Additional character description..."

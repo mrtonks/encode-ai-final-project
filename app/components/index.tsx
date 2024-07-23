@@ -1,5 +1,2 @@
-export { default as ImageCreationScreen } from './ImageCreationScreen'
-export { default as ImageSelectionsScreen } from './ImageSelectionsScreen'
-export { default as ImageDescriptionScreen } from './ImageDescriptionScreen'
-export { default as ImageReviewScreen } from './ImageReviewScreen'
-export { default as ImageCompletedScreen } from './ImageCompletedScreen'
+export { default as ImageCreation } from './ImageCreation'
+export { default as BackstoryCreation } from './BackstoryCreation'

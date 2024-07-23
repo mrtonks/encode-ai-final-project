@@ -182,9 +182,9 @@ export default function ImageSelectionScreen({
   const [activeTrait, setActiveTrait] = useState<SelectionKey | undefined>()
 
   return (
-    <div className="flex flex-col md:flex-row mx-auto my-10">
+    <div className="flex flex-col md:flex-row md:gap-20 justify-center">
       {/* Title */}
-      <div className="flex md:w-3/6 md:pl-20 md:pr-40 px-10 md:mt-0 mt-5 flex-col justify-center">
+      <div className="flex md:w-2/6 flex-col justify-center">
         <div className="flex flex-col flex-grow items-center justify-center">
           <Image
             src="/images/logo215x171.png"

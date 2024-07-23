@@ -46,7 +46,7 @@ export default function ImageReviewScreen({
   }
 
   return (
-    <div className="flex flex-col md:w-2/6 justify-center items-center mx-auto my-10">
+    <div className="flex flex-col md:w-3/6 justify-center items-center mx-auto">
       {/* Title */}
       <Image
         src="/images/logo215x171.png"

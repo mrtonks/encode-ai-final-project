@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { ImageCreationScreen } from './components'
+import { BackstoryCreation, ImageCreation } from './components'
 
 export default function Home() {
   const styles = {
@@ -21,9 +21,10 @@ export default function Home() {
     BACKSTORY_CREATION: 'backstory-creation',
   }
 
-  const [view, setView] = useState(VIEWS.INTRO) // set to intro
-  const [showIntroScreen, setShowIntroScreen] = useState(true)
-  const [isImageCompleted, setIsImageCompleted] = useState(false)
+  const [view, setView] = useState<string>(VIEWS.INTRO) // set to intro
+  const [showIntroScreen, setShowIntroScreen] = useState<boolean>(true)
+  const [isImageCompleted, setIsImageCompleted] = useState<boolean>(false)
+  const [characterImage, setCharacterImage] = useState<string>('')
 
   const cards = [
     {
@@ -53,7 +54,13 @@ export default function Home() {
       setView(VIEWS.HOME)
     }, 1500)
     return () => clearTimeout(timer)
-  }, [])
+  }, [VIEWS.HOME])
+
+  const handleStartBackstory = (image: string) => {
+    setCharacterImage(image)
+    setIsImageCompleted(true)
+    setView(VIEWS.BACKSTORY_CREATION)
+  }
 
   return (
     <div className="flex min-h-screen">
@@ -143,13 +150,17 @@ export default function Home() {
               </p>
             </div>
           </div>
+        ) : view === VIEWS.IMAGE_CREATION ? (
+          <ImageCreation
+            onReturnHome={() => {
+              document.body.style.backgroundColor = '#fedadb'
+              setView(VIEWS.HOME)
+            }}
+            onStartBackstory={handleStartBackstory}></ImageCreation>
         ) : (
-          view === VIEWS.IMAGE_CREATION && (
-            <ImageCreationScreen
-              onPreviousClick={() => {
-                document.body.style.backgroundColor = '#fedadb'
-                setView(VIEWS.HOME)
-              }}></ImageCreationScreen>
+          view === VIEWS.BACKSTORY_CREATION && (
+            <BackstoryCreation
+              characterImage={characterImage}></BackstoryCreation>
           )
         )}
       </div>

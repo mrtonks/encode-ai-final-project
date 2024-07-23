@@ -14,6 +14,7 @@ const config: Config = {
         secondary: '#333333',
         tertiary: '#fedadb',
         purple: '#6221e6',
+        'purple-light': '#E4D9FF',
         'gray-dark': '#273444',
         'gray-dark-2': '#302939',
         'gray-light': '#c7c6c6',

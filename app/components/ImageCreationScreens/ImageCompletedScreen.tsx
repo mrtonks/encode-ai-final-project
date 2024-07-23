@@ -54,7 +54,7 @@ export default function ImageCompletedScreen({
         }`}>
         {/* Title */}
         <Image
-          src={base64Image}
+          src="/images/logo215x171.png"
           alt="logo"
           title="logo"
           width={101}
@@ -122,9 +122,16 @@ export default function ImageCompletedScreen({
       </div>
       {openEditTraits && (
         <div className="flex flex-col md:w-3/6 md:my-auto mb-3">
-          <span className="flex w-28 self-end rounded py-1 pl-2 bg-gray-800 mb-2 text-xs text-white">
-            {`${maxWords - countWords(prompts)} words left`}
-          </span>
+          <div className="flex flex-row justify-between">
+            <span className="flex w-28 self-end rounded py-1 pl-2 bg-gray-800 mb-2 text-xs text-white">
+              {`${maxWords - countWords(prompts)} words left`}
+            </span>
+            <div
+              className="text-primary cursor-pointer"
+              onClick={() => setOpenEditTraits(false)}>
+              <span className="material-symbols-outlined">close</span>
+            </div>
+          </div>
           <div className="flex flex-col">
             <textarea
               id="hs-textarea-with-corner-hint"
