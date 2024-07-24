@@ -7,6 +7,14 @@ Welcome to the Character Designer project! This tool leverages AI models to help
 - Backstory Creation: generate compelling backstories for your characters based on the provided image and traits.
 - Customization Options: Fine-tune your character’s appearance and backstory with easy-to-use customization features.
 
+# UX Documentation
+- [User Research](./UX/Research/user_research.pdf)
+- [Competitive Analysis](./UX/Research/competitive_analysis.pdf)
+- [Wireframes](./UX/Wireframes/wireframes.pdf)
+- [User Flows](./UX/UserFlows/user_flows.pdf)
+- [Figma Prototype](./UX/Prototypes/figma_prototype_link.txt)
+- [Video Demos](./UX/Videos/demo_video.mp4)
+
 # Usage 
 [include user flow image]
 
