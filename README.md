@@ -8,13 +8,13 @@ Welcome to the Character Designer project! This tool leverages AI models to help
 - **Customization Options:** Fine-tune your character’s appearance and backstory with easy-to-use customization features.
 
 # UX Documentation
-- [User Survey](./main/User%20Survey%20(Responses).pdf)
-- [User Research Analysis] (./main/User%20Research%20Analysis.pdf)
+- [User Survey](https://drive.google.com/file/d/1Zt4NuzuDQVZDZh0VT0ETCalTgYuQxRMs/view?usp=sharing)
+- [User Research Analysis] (https://drive.google.com/file/d/1Nl65jKSN37Ki7pXZGxMXYxzQ0wK7gc6y/view?usp=sharing)
 - [Competitive Analysis](./UX/Research/competitive_analysis.pdf)
 - [Wireframes](./UX/Wireframes/wireframes.pdf)
-- [User Flow](./UX/UserFlows/user_flow.pdf)
+- [User Flow](https://drive.google.com/file/d/1R72bXj5xS6VrcSysHJTVx0S2YOjReHhZ/view?usp=sharing)
 - [Figma prototype](https://www.figma.com/design/gxO6ixJ5dPMKf3LkQXsXYf/Game-Character-Designer?node-id=137-26145&t=eU0Otrbgh3EyDz80-0)
-- [Video Demos](./UX/Videos/demo_video.mp4)
+- [Video Demos](https://drive.google.com/file/d/13u5zmK9J2Pljj9AbQ_U4C64rVypfgJbe/view?usp=sharing)
 
 # Usage 
 
