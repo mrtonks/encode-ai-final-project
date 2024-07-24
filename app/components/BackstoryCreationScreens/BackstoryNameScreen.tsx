@@ -43,7 +43,7 @@ export default function BackstoryNameScreen({
         <input
           id="name"
           className="mb-2 py-3 px-4 block w-full bg-purple-light border-gray-300 rounded-lg text-sm focus:border-purple focus:ring-purple disabled:opacity-50 disabled:pointer-events-none shadow-md"
-          placeholder="Character's name"
+          placeholder="Character's name..."
           value={name}
           onChange={onUpdateName}
         />

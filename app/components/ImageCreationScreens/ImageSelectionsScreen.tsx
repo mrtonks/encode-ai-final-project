@@ -216,7 +216,7 @@ export default function ImageSelectionScreen({
         </div>
       </div>
       {/* Selections */}
-      <div className="flex md:w-2/6 flex-col mt-5 md:px-8">
+      <div className="flex md:w-2/6 flex-col md:mt-16 mt-5 md:px-8">
         <div className="p-4">
           <nav className="flex space-x-4">
             {Object.values(tabs).map((tab) => (

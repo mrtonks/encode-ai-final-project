@@ -10,6 +10,14 @@ interface Step {
   next: string
 }
 
+interface Selections {
+  theme: string
+  story_length: string
+  description: string
+}
+
+type SelectionKey = keyof Selections
+
 interface Props {
   characterImage: string
 }
@@ -33,22 +41,50 @@ export default function BackstoryCreation({ characterImage }: Props) {
     },
   }
 
+  const descriptionMaxCharacters: number = 500
+
   const [view, setView] = useState<Step>(steps.name)
   const [progress, setProgress] = useState<number>(steps.name.progress)
   const [characterName, setCharacterName] = useState<string>('')
+  const [selections, setSelections] = useState<Selections>({
+    theme: 'Adventure',
+    story_length: 'Short size, 100-200 words',
+    description: '',
+  })
+  const [maxCharacters, setMaxCharacters] = useState<number>(
+    descriptionMaxCharacters
+  )
 
   useEffect(() => {
     document.body.style.backgroundColor = '#DDF5DA'
   })
 
   useEffect(() => {
-    console.log(characterName)
+    console.log(characterName) // remove
     setProgress(view.progress)
   }, [view])
+
+  // remove
+  useEffect(() => {
+    console.log(selections)
+  }, [selections])
 
   const handleUpdateName = (event: ChangeEvent<HTMLInputElement>) => {
     const value: string = event.target.value
     setCharacterName(value.trim())
+  }
+
+  const handleUpdateSelection = (key: SelectionKey, value: string) => {
+    if (key === 'description' && value.length <= descriptionMaxCharacters) {
+      setMaxCharacters(descriptionMaxCharacters - value.length)
+    } else {
+      return
+    }
+
+    setSelections((prevSelections) => ({
+      ...prevSelections,
+      [key]: value,
+    }))
   }
 
   return (
@@ -64,7 +100,12 @@ export default function BackstoryCreation({ characterImage }: Props) {
         ) : (
           view.previous === 'name' && (
             <BackstoryDetailsScreen
-              progress={progress}></BackstoryDetailsScreen>
+              progress={progress}
+              selections={selections}
+              maxCharacters={maxCharacters}
+              onUpdateSelection={
+                handleUpdateSelection
+              }></BackstoryDetailsScreen>
           )
         )}
       </div>
