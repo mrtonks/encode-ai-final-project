@@ -12,7 +12,7 @@ Welcome to the Character Designer project! This tool leverages AI models to help
 - [User Research Analysis] (./main/User%20Research%20Analysis.pdf)
 - [Competitive Analysis](./UX/Research/competitive_analysis.pdf)
 - [Wireframes](./UX/Wireframes/wireframes.pdf)
-- [User Flows](./UX/UserFlows/user_flows.pdf)
+- [User Flow](./UX/UserFlows/user_flow.pdf)
 - [Figma Prototype](./UX/Prototypes/figma_prototype_link.txt)
 - [Video Demos](./UX/Videos/demo_video.mp4)
 
