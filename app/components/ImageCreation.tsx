@@ -241,7 +241,10 @@ export default function ImageCreation({
               isDownloading={isDownloading}
               isLoading={isLoadingImage}
               onDownload={handleDownload}
-              onRegenerateImage={handleRegenerateImage}></ImageCompletedScreen>
+              onRegenerateImage={handleRegenerateImage}
+              onStartBackstory={() =>
+                onStartBackstory(base64Image)
+              }></ImageCompletedScreen>
           )
         )}
       </div>

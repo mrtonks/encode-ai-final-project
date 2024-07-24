@@ -74,8 +74,8 @@ export default function Home() {
               <div className="flex flex-grow flex-col justify-center items-center">
                 <Image
                   src="/images/logo215x171.png"
-                  alt="logo"
-                  title="logo"
+                  alt="logo intro"
+                  title="logo intro"
                   width={54}
                   height={43}
                   className="h-auto"
@@ -120,6 +120,7 @@ export default function Home() {
                       alt="image"
                       width={1289}
                       height={1148}
+                      priority
                       className="h-auto md:px-20 px-10"
                     />
                     <div className="p-4 md:p-5 flex justify-end">

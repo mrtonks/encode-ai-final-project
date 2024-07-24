@@ -8,6 +8,7 @@ interface Props {
   isLoading: boolean
   onDownload: () => void
   onRegenerateImage: (prompts: string, negativePrompts?: string) => void
+  onStartBackstory: () => void
 }
 
 export default function ImageCompletedScreen({
@@ -17,6 +18,7 @@ export default function ImageCompletedScreen({
   isLoading,
   onDownload,
   onRegenerateImage,
+  onStartBackstory,
 }: Props) {
   const [openEditTraits, setOpenEditTraits] = useState<boolean>(false)
   const [prompts, setPrompts] = useState<string>('')
@@ -113,7 +115,8 @@ export default function ImageCompletedScreen({
             </button>
             <button
               type="button"
-              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none focus:bg-pink-200 disabled:opacity-50 disabled:pointer-events-none">
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none focus:bg-pink-200 disabled:opacity-50 disabled:pointer-events-none"
+              onClick={onStartBackstory}>
               <span className="material-symbols-outlined">heart_plus</span>
               Backstory
             </button>
