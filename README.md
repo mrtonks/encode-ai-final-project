@@ -2,10 +2,10 @@
 Welcome to the Character Designer project! This tool leverages AI models to help you create detailed and personalized game characters. Whether you're a developer, illustrator, writer or a gamer, our tool simplifies the character creation process by generating character images and backstories based on your inputs.
 
 # Features
-- Character Image Generation: create unique character images using AI, with options to customize various physical traits, image style providing description.
-- Image Stabilization: ensure high-quality and consistent character images through advanced image stabilization techniques.
-- Backstory Creation: generate compelling backstories for your characters based on the provided image and traits.
-- Customization Options: Fine-tune your character’s appearance and backstory with easy-to-use customization features.
+- **Character Image Generation:** create unique character images using AI, with options to customize various physical traits, image style providing description.
+- **Image Stabilization:** ensure high-quality and consistent character images through advanced image stabilization techniques.
+- **Backstory Creation:** generate compelling backstories for your characters based on the provided image and traits.
+- **Customization Options:** Fine-tune your character’s appearance and backstory with easy-to-use customization features.
 
 # UX Documentation
 - [User Survey](./main/User%20Survey%20(Responses).pdf)
