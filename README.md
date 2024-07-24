@@ -1,5 +1,5 @@
 # Character designer (CS)
-Welcome to the Character Designer project! This tool leverages AI models to help you create detailed and personalized game characters. Whether you're a developer, illustrator, writer or a gamer, our tool simplifies the character creation process by generating character images and backstories based on your inputs.
+Welcome to the Character Designer project. This tool leverages AI models to help users create detailed and personalized characters. Whether you're a developer, illustrator, writer or a gamer, our tool simplifies the character creation process by generating character images and backstories based on your inputs.
 
 # Features
 - **Character Image Generation:** create unique character images using AI, with options to customize various physical traits, image style providing description.
