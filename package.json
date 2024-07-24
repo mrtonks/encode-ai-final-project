@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@preline/tabs": "^2.3.0",
-    "ai": "^3.2.33",
+    "ai": "^3.2.1",
     "next": "14.2.5",
     "openai": "^4.53.0",
     "preline": "^2.3.0",

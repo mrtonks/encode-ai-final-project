@@ -1,9 +1,12 @@
+'use client'
+
 import { ChangeEvent, useEffect, useState } from 'react'
 import {
   BackstoryCompletedScreen,
   BackstoryDetailsScreen,
   BackstoryNameScreen,
 } from './BackstoryCreationScreens'
+import { useChat } from 'ai/react'
 
 interface Step {
   progress: number
@@ -15,6 +18,11 @@ interface Selections {
   theme: string
   story_length: string
   description: string
+}
+
+interface IMessage {
+  role: string
+  content: string
 }
 
 type SelectionKey = keyof Selections
@@ -66,7 +74,7 @@ export default function BackstoryCreation({
   )
   const [isLoadingBackstory, setIsLoadingBackstory] = useState<boolean>(false)
   const [generatedStory, setGeneratedStory] = useState<string>('')
-
+  const [messages, setMessages] = useState<Array<IMessage>>([])
   useEffect(() => {
     document.body.style.backgroundColor = '#DDF5DA'
   })
@@ -101,27 +109,88 @@ export default function BackstoryCreation({
     }))
   }
 
-  const handleBackstoryGeneration = () => {
+  const handleBackstoryGeneration = async (): Promise<void> => {
     setIsLoadingBackstory(true)
 
-    const prompts: string = `Write a story with the theme of ${selections.theme}. The story should be ${selections.story_length}. The main character's name of the story is ${characterName}. The physical description of the main character is ${characterPhysicalDescription}. This short description should be used to create the story: ${selections.description}`
+    const initialMessage = {
+      role: 'user',
+      content: `Write a story with the theme of ${selections.theme}. The story should be ${selections.story_length}. The main character's name of the story is ${characterName}. The physical description of the main character is ${characterPhysicalDescription}. This short description should be used to create the story: ${selections.description}`,
+    }
+    const response = await fetch('api/backstory', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages: [initialMessage],
+      }),
+    })
+    const reader = response.body?.getReader()
+    const decoder = new TextDecoder()
 
-    setTimeout(() => {
+    // Push the initial system message to the messages state
+    const systemMessage = { role: 'system', content: '' }
+    setMessages((prevMessages) => [...prevMessages, systemMessage])
+
+    if (reader) {
+      let result
+      let accumulatedContent = ''
+      while (!(result = await reader.read()).done) {
+        const chunk = decoder.decode(result.value, { stream: true })
+        accumulatedContent += chunk
+        // Update the content of the last message (system message) with the new chunk
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages]
+          const lastMessage = updatedMessages[updatedMessages.length - 1]
+          lastMessage.content = accumulatedContent
+          return updatedMessages
+        })
+      }
+      setGeneratedStory(accumulatedContent)
       setIsLoadingBackstory(false)
-      setGeneratedStory(prompts)
-      alert(prompts)
       setView(steps.completed)
-    }, 1000)
+    }
+    
   }
 
-  const handleBackstoryRegeneration = (prompts: string) => {
-    setIsLoadingBackstory(true)
+  const handleBackstoryRegeneration = async (prompts: string): Promise<void> => {
 
-    setTimeout(() => {
+    const regeneratedMessage = {
+      role: 'user',
+      content: prompts,
+    }
+    setIsLoadingBackstory(true)
+    const response = await fetch('api/backstory', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages: [regeneratedMessage],
+      }),
+    })
+
+    const reader = response.body?.getReader()
+    const decoder = new TextDecoder()
+
+    if (reader) {
+      let result
+      let accumulatedContent = ''
+      while (!(result = await reader.read()).done) {
+        const chunk = decoder.decode(result.value, { stream: true })
+        accumulatedContent += chunk
+        // Update the content of the last message (system message) with the new chunk
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages]
+          const lastMessage = updatedMessages[updatedMessages.length - 1]
+          lastMessage.content = accumulatedContent
+          return updatedMessages
+        })
+      }
+      setGeneratedStory(accumulatedContent)
       setIsLoadingBackstory(false)
-      setGeneratedStory(prompts)
-      alert(prompts)
-    }, 1000)
+      setView(steps.completed)
+    }
   }
 
   const handleDownload = () => {
