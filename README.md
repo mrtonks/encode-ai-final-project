@@ -17,7 +17,6 @@ Welcome to the Character Designer project! This tool leverages AI models to help
 - [Video Demos](./UX/Videos/demo_video.mp4)
 
 # Usage 
-[include user flow image]
 
 ## Welcome Screen
 Upon launching the application, you’ll be greeted with a welcome screen. Click the button or press Enter to start creating your character.
