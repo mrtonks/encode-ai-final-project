@@ -25,6 +25,8 @@ export default function Home() {
   const [showIntroScreen, setShowIntroScreen] = useState<boolean>(true)
   const [isImageCompleted, setIsImageCompleted] = useState<boolean>(false)
   const [characterImage, setCharacterImage] = useState<string>('')
+  const [characterPhysicalDescription, setCharacterPhysicalDescription] =
+    useState<string>('')
 
   const cards = [
     {
@@ -56,8 +58,9 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [VIEWS.HOME])
 
-  const handleStartBackstory = (image: string) => {
+  const handleStartBackstory = (image: string, physicalDescription: string) => {
     setCharacterImage(image)
+    setCharacterPhysicalDescription(physicalDescription)
     setIsImageCompleted(true)
     setView(VIEWS.BACKSTORY_CREATION)
   }
@@ -161,7 +164,10 @@ export default function Home() {
         ) : (
           view === VIEWS.BACKSTORY_CREATION && (
             <BackstoryCreation
-              characterImage={characterImage}></BackstoryCreation>
+              characterImage={characterImage}
+              characterPhysicalDescription={
+                characterPhysicalDescription
+              }></BackstoryCreation>
           )
         )}
       </div>

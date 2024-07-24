@@ -286,7 +286,7 @@ export default function ImageSelectionScreen({
                               className="flex py-3 cursor-pointer">
                               <input
                                 type="checkbox"
-                                id={`toggle-${option}`}
+                                id={`toggle-${option.name}`}
                                 className="relative w-[3.25rem] h-7 p-px bg-tertiary text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-primary checked:border-purple focus:checked:border-purple  before:inline-block before:size-6 before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
                                 checked={
                                   !!selections[key as SelectionKey].length

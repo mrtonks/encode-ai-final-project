@@ -27,7 +27,7 @@ interface Step {
 
 interface Props {
   onReturnHome: () => void
-  onStartBackstory: (image: string) => void
+  onStartBackstory: (image: string, physicalDescription: string) => void
 }
 
 export default function ImageCreation({
@@ -73,6 +73,7 @@ export default function ImageCreation({
   const [base64Image, setBase64Image] = useState<string>(
     '/images/character-image-sample.png'
   ) // remove default
+  const [physicalDescription, setPhysicalDescription] = useState<string>('')
   const [isDownloading, setIsDownloading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -160,9 +161,11 @@ export default function ImageCreation({
     setIsLoadingImage(true)
 
     let prompts: string = ''
+    let promptsTextGeneration: string = ''
     Object.values(selections).forEach((value) => {
-      if (typeof value === 'string') {
+      if (typeof value === 'string' && !!value) {
         prompts += ' ' + value.trim().split(/\s+/).filter(Boolean)
+        promptsTextGeneration += value.trim() + ', '
       } else if (Array.isArray(value)) {
         prompts += value.reduce(
           (acc, str) => acc + ' ' + str.trim().split(/\s+/).filter(Boolean),
@@ -171,14 +174,19 @@ export default function ImageCreation({
       }
     })
 
+    // Prompts to be used for generating the image
     const cleanedPrompts: string = prompts.replace(/,/g, ' ')
 
+    // TODO: generate image (not regeneration)
     setTimeout(() => {
       setIsLoadingImage(false)
+      setPhysicalDescription(
+        promptsTextGeneration
+          .trim()
+          .substring(0, promptsTextGeneration.length - 2)
+      )
       alert(cleanedPrompts)
-      setView(steps.completed)
     }, 1000)
-    // TODO: generate image (not regeneration)
   }
 
   const handleRegenerateImage = (
@@ -243,7 +251,7 @@ export default function ImageCreation({
               onDownload={handleDownload}
               onRegenerateImage={handleRegenerateImage}
               onStartBackstory={() =>
-                onStartBackstory(base64Image)
+                onStartBackstory(base64Image, physicalDescription)
               }></ImageCompletedScreen>
           )
         )}
@@ -275,12 +283,14 @@ export default function ImageCreation({
                 const next = view.next
 
                 if (!next) {
-                  onStartBackstory(base64Image)
+                  onStartBackstory(base64Image, physicalDescription)
                   return
                 } else if (next === 'completed') {
                   handleGenerateImage()
+                  setView(steps.completed)
                   return
                 }
+
                 setView(steps[next])
               }}>
               Next

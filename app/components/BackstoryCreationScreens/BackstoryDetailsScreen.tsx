@@ -108,7 +108,7 @@ export default function BackstoryDetailsScreen({
   return (
     <div className="flex flex-grow md:flex-row flex-col md:gap-20 justify-center">
       {/* Title */}
-      <div className="flex flex-col md:w-2/6 items-center my-auto">
+      <div className="flex flex-col md:w-1/4 items-center my-auto">
         <Image
           src="/images/logo215x171.png"
           alt="logo"
@@ -188,7 +188,14 @@ export default function BackstoryDetailsScreen({
                 <div className="flex flex-col bg-purple-light border-purple-light shadow-sm rounded-xl p-4 md:p-5">
                   {tab.array_options.map((option, index) => (
                     <div key={index} className="flex py-3 gap-3">
-                      <div className="flex flex-col flex-grow">
+                      <div
+                        className="flex flex-col flex-grow cursor-pointer"
+                        onClick={() => {
+                          onUpdateSelection(
+                            key as SelectionKey,
+                            `${option.label} size, ${option.legend}`
+                          )
+                        }}>
                         <span className="flex flex-grow justify-between items-center">
                           {option.label}{' '}
                           <span className="text-xs">({option.legend})</span>

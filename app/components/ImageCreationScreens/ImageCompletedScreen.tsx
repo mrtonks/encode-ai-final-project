@@ -88,7 +88,7 @@ export default function ImageCompletedScreen({
             </span>
           ) : (
             <Image
-              src="/images/character-image-sample.png"
+              src={base64Image}
               alt="Character image"
               width={500}
               height={500}
@@ -100,7 +100,7 @@ export default function ImageCompletedScreen({
           <div className="inline-flex mt-3 gap-3">
             <button
               type="button"
-              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none focus:bg-pink-200 disabled:opacity-50 disabled:pointer-events-none"
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none disabled:opacity-50 disabled:pointer-events-none shadow-md"
               disabled={isDownloading}
               onClick={onDownload}>
               <span className="material-symbols-outlined">download</span>
@@ -108,14 +108,14 @@ export default function ImageCompletedScreen({
             </button>
             <button
               type="button"
-              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none focus:bg-pink-200 disabled:opacity-50 disabled:pointer-events-none"
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none disabled:opacity-50 disabled:pointer-events-none shadow-md"
               onClick={() => setOpenEditTraits(true)}>
               <span className="material-symbols-outlined">edit_note</span>
               Edit traits
             </button>
             <button
               type="button"
-              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none focus:bg-pink-200 disabled:opacity-50 disabled:pointer-events-none"
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none disabled:opacity-50 disabled:pointer-events-none shadow-md"
               onClick={onStartBackstory}>
               <span className="material-symbols-outlined">heart_plus</span>
               Backstory
@@ -146,7 +146,7 @@ export default function ImageCompletedScreen({
             <div className="flex flex-row justify-around">
               <button
                 type="button"
-                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none focus:bg-pink-200 disabled:opacity-50 disabled:pointer-events-none"
+                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none disabled:opacity-50 disabled:pointer-events-none shadow-md"
                 disabled={!prompts}
                 onClick={() => {
                   setOpenEditTraits(false)
@@ -157,7 +157,7 @@ export default function ImageCompletedScreen({
               </button>
               <button
                 type="button"
-                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none focus:bg-pink-200 disabled:opacity-50 disabled:pointer-events-none"
+                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-tertiary text-primary hover:bg-pink-200 focus:outline-none disabled:opacity-50 disabled:pointer-events-none shadow-md"
                 disabled={!prompts}
                 onClick={() => {
                   setOpenEditTraits(false)
