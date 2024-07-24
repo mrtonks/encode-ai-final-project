@@ -8,7 +8,8 @@ Welcome to the Character Designer project! This tool leverages AI models to help
 - Customization Options: Fine-tune your character’s appearance and backstory with easy-to-use customization features.
 
 # UX Documentation
-- [User Research](./main/User%20Survey%20(Responses).pdf)
+- [User Survey](./main/User%20Survey%20(Responses).pdf)
+- [User Research Analysis] (./main/User%20Research%20Analysis.pdf)
 - [Competitive Analysis](./UX/Research/competitive_analysis.pdf)
 - [Wireframes](./UX/Wireframes/wireframes.pdf)
 - [User Flows](./UX/UserFlows/user_flows.pdf)
