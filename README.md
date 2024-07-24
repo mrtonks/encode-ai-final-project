@@ -10,8 +10,8 @@ Welcome to the Character Designer project. This tool leverages AI models to help
 # UX Documentation
 - [User Survey](https://drive.google.com/file/d/1Zt4NuzuDQVZDZh0VT0ETCalTgYuQxRMs/view?usp=sharing)
 - [User Research Analysis](https://drive.google.com/file/d/1Nl65jKSN37Ki7pXZGxMXYxzQ0wK7gc6y/view?usp=sharing)
-- [Competitive Analysis](./UX/Research/competitive_analysis.pdf)
-- [Wireframes](./UX/Wireframes/wireframes.pdf)
+- [Competitive Analysis]
+- [Wireframes]
 - [User Flow](https://drive.google.com/file/d/1R72bXj5xS6VrcSysHJTVx0S2YOjReHhZ/view?usp=sharing)
 - [Figma prototype](https://www.figma.com/design/gxO6ixJ5dPMKf3LkQXsXYf/Game-Character-Designer?node-id=137-26145&t=eU0Otrbgh3EyDz80-0)
 - [Video Demos](https://drive.google.com/file/d/13u5zmK9J2Pljj9AbQ_U4C64rVypfgJbe/view?usp=sharing)
