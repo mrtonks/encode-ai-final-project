@@ -176,7 +176,7 @@ export default function ImageCreation({
 
     // Prompts to be used for generating the image
     const cleanedPrompts: string = prompts.replace(/,/g, ' ')
-    /*
+    
     const response = await fetch('api/create-character', {
       method: 'POST',
       headers: {
@@ -187,7 +187,7 @@ export default function ImageCreation({
       }),
     })
     const imageData = await response.json();
-    setImage(JSON.stringify(imageData));
+    setBase64Image(JSON.stringify(imageData));
    
     setPhysicalDescription(
       promptsTextGeneration
@@ -196,24 +196,14 @@ export default function ImageCreation({
     )
 
     setIsLoadingImage(false)
-    */ 
-    // TODO:remove this part and enable image generation 
-    setTimeout(() => {
-      setIsLoadingImage(false)
-      setPhysicalDescription(
-        promptsTextGeneration
-          .trim()
-          .substring(0, promptsTextGeneration.length - 2)
-      )
-      alert(cleanedPrompts)
-    }, 1000)
   }
 
-  const handleRegenerateImage = (
+  const handleRegenerateImage = async (
     prompts: string = '',
     negativePrompts: string = ''
   ) => {
-     /*
+    setIsLoadingImage(true)
+    
       const response = await fetch('api/regenerate-character', {
         method: 'POST',
         headers: {
@@ -227,14 +217,6 @@ export default function ImageCreation({
       const newImageData = await response.json();
       setBase64Image(JSON.stringify(newImageData));
       setIsLoadingImage(false)
-    */ 
-
-     // TODO: enable image regeneration
-     setIsLoadingImage(true)
-     setTimeout(() => {
-       alert('regenerate image')
-       setIsLoadingImage(false)
-     }, 2000)
   }
 
   const handleDownload = () => {
