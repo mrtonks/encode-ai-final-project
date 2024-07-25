@@ -53,7 +53,7 @@ Select various physical traits for your character:
 - Facial Features: Prominent nose, Sharp jawline, etc.
 
 ## Step 3: Add short description 
-Write  ~55 characters additionaly to describe your character
+Write ~55 additional words to describe your character
 
 ## Step 4: Confirmation
 
@@ -72,9 +72,6 @@ Based on the character style, traits, and description an epic backstory with 900
 Fine-tune your character’s backstory with additional customization options. Once satisfied, finalize your character. It only has 8 instances.
 
 # Getting started
-## Prerequisites
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Configuration
 In order to make the app working you need to define the following environment variables
@@ -82,6 +79,8 @@ In order to make the app working you need to define the following environment va
  - OPENAI_ASSISTANT_ID
  - IMAGE_API_KEY
  - IMAGE_API_HOST
+
+The project uses OpenAI API (GPT 3.5 turbo) for text generation and StabilityAI API (Stable Diffusion 1.6) for image generation so make sure you have enough credits to run the model. You can use any alternative model source as long as they are compatible with the given APIs
 
 ## Installation
 Install the dependencies
