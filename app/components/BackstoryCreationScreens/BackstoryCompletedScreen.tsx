@@ -16,7 +16,7 @@ export default function BackstoryCompletedScreen({
   onDownload,
   onRegeneration,
 }: Props) {
-  const [openEditStory, setOpenEditStory] = useState<boolean>(true)
+  const [openEditStory, setOpenEditStory] = useState<boolean>(false)
   const [chat, setChat] = useState<string>('')
 
   return (
@@ -73,7 +73,7 @@ export default function BackstoryCompletedScreen({
               className="mb-2 py-3 px-4 block w-full bg-purple-light border-gray-300 rounded-lg text-sm focus:border-purple focus:ring-purple disabled:pointer-events-none shadow-md"
               rows={13}
               value={generatedStory}
-              disabled></textarea>
+              readOnly></textarea>
           )}
         </div>
         {!isLoading && (

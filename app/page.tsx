@@ -5,6 +5,10 @@ import Image from 'next/image'
 import { BackstoryCreation, ImageCreation } from './components'
 
 export default function Home() {
+  useEffect(() => {
+    document.body.style.backgroundColor = '#fedadb'
+  })
+
   const styles = {
     imageCreationCard: {
       backgroundColor: '#E4D9FF',
@@ -165,9 +169,8 @@ export default function Home() {
           view === VIEWS.BACKSTORY_CREATION && (
             <BackstoryCreation
               characterImage={characterImage}
-              characterPhysicalDescription={
-                characterPhysicalDescription
-              }></BackstoryCreation>
+              characterPhysicalDescription={characterPhysicalDescription}
+              onGoHome={() => setView(VIEWS.HOME)}></BackstoryCreation>
           )
         )}
       </div>

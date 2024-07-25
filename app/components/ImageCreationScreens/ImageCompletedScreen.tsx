@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 interface Props {
   progress: number
@@ -131,7 +131,10 @@ export default function ImageCompletedScreen({
             </span>
             <div
               className="text-primary cursor-pointer"
-              onClick={() => setOpenEditTraits(false)}>
+              onClick={() => {
+                setOpenEditTraits(false)
+                setPrompts('')
+              }}>
               <span className="material-symbols-outlined">close</span>
             </div>
           </div>
@@ -151,6 +154,7 @@ export default function ImageCompletedScreen({
                 onClick={() => {
                   setOpenEditTraits(false)
                   onRegenerateImage(prompts)
+                  setPrompts('')
                 }}>
                 <span className="material-symbols-outlined">add</span>
                 Add traits
@@ -162,6 +166,7 @@ export default function ImageCompletedScreen({
                 onClick={() => {
                   setOpenEditTraits(false)
                   onRegenerateImage('', prompts)
+                  setPrompts('')
                 }}>
                 <span className="material-symbols-outlined">close</span>
                 Remove traits

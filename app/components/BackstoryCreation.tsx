@@ -6,7 +6,6 @@ import {
   BackstoryDetailsScreen,
   BackstoryNameScreen,
 } from './BackstoryCreationScreens'
-import { useChat } from 'ai/react'
 
 interface Step {
   progress: number
@@ -30,17 +29,14 @@ type SelectionKey = keyof Selections
 interface Props {
   characterImage: string
   characterPhysicalDescription: string
+  onGoHome: () => void
 }
 
 export default function BackstoryCreation({
   characterImage,
   characterPhysicalDescription,
+  onGoHome,
 }: Props) {
-  useEffect(() => {
-    console.log(characterImage)
-    console.log(characterPhysicalDescription)
-  }, [])
-
   const steps: Record<string, Step> = {
     name: {
       progress: 33,
@@ -80,14 +76,8 @@ export default function BackstoryCreation({
   })
 
   useEffect(() => {
-    console.log(characterName) // remove
     setProgress(view.progress)
   }, [view])
-
-  // remove
-  useEffect(() => {
-    console.log(selections)
-  }, [selections])
 
   const handleUpdateName = (event: ChangeEvent<HTMLInputElement>) => {
     const value: string = event.target.value
@@ -150,15 +140,21 @@ export default function BackstoryCreation({
       setIsLoadingBackstory(false)
       setView(steps.completed)
     }
-    
   }
 
-  const handleBackstoryRegeneration = async (prompts: string): Promise<void> => {
-
-    const regeneratedMessage = {
-      role: 'user',
-      content: prompts,
-    }
+  const handleBackstoryRegeneration = async (
+    prompts: string
+  ): Promise<void> => {
+    const regeneratedMessage = [
+      {
+        role: 'user',
+        content: `Write a story with the theme of ${selections.theme}. The story should be ${selections.story_length}. The main character's name of the story is ${characterName}. The physical description of the main character is ${characterPhysicalDescription}. This story should be used to create another story: ${generatedStory}`,
+      },
+      {
+        role: 'user',
+        content: `Add these changes to the story: ${prompts}`,
+      },
+    ]
     setIsLoadingBackstory(true)
     const response = await fetch('api/backstory', {
       method: 'POST',
@@ -166,7 +162,7 @@ export default function BackstoryCreation({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        messages: [regeneratedMessage],
+        messages: regeneratedMessage,
       }),
     })
 
@@ -262,31 +258,37 @@ export default function BackstoryCreation({
               </span>
               Loading
             </button>
-          ) : (
-            !!view.next && (
-              <button
-                type="button"
-                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-light-2 text-primary hover:border-purple hover:text-purple disabled:opacity-50 disabled:pointer-events-none"
-                disabled={
-                  view.next === 'details'
-                    ? !characterName
-                    : view.next === 'completed'
-                    ? false
-                    : true
-                }
-                onClick={() => {
-                  const next = view.next
+          ) : !!view.next ? (
+            <button
+              type="button"
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-light-2 text-primary hover:border-purple hover:text-purple disabled:opacity-50 disabled:pointer-events-none"
+              disabled={
+                view.next === 'details'
+                  ? !characterName
+                  : view.next === 'completed'
+                  ? false
+                  : true
+              }
+              onClick={() => {
+                const next = view.next
 
-                  if (next === 'completed') {
-                    handleBackstoryGeneration()
-                  } else {
-                    setView(steps[next])
-                  }
-                }}>
-                Next
-                <span className="material-symbols-outlined">chevron_right</span>
-              </button>
-            )
+                if (next === 'completed') {
+                  handleBackstoryGeneration()
+                } else {
+                  setView(steps[next])
+                }
+              }}>
+              Next
+              <span className="material-symbols-outlined">chevron_right</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-light-2 text-primary hover:border-purple hover:text-purple disabled:opacity-50 disabled:pointer-events-none"
+              onClick={onGoHome}>
+              Start again
+              <span className="material-symbols-outlined">chevron_right</span>
+            </button>
           )}
         </div>
       </div>

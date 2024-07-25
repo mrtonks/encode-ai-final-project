@@ -176,7 +176,7 @@ export default function ImageCreation({
 
     // Prompts to be used for generating the image
     const cleanedPrompts: string = prompts.replace(/,/g, ' ')
-    
+
     const response = await fetch('api/create-character', {
       method: 'POST',
       headers: {
@@ -186,9 +186,9 @@ export default function ImageCreation({
         prompt: cleanedPrompts,
       }),
     })
-    const imageData = await response.json();
-    setBase64Image(JSON.stringify(imageData));
-   
+    const imageData = await response.text()
+    setBase64Image(imageData)
+
     setPhysicalDescription(
       promptsTextGeneration
         .trim()
@@ -203,31 +203,30 @@ export default function ImageCreation({
     negativePrompts: string = ''
   ) => {
     setIsLoadingImage(true)
-    
-      const response = await fetch('api/regenerate-character', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: prompts,
-          image: base64Image,
-        }),
-      })
-      const newImageData = await response.json();
-      setBase64Image(JSON.stringify(newImageData));
-      setIsLoadingImage(false)
+
+    const response = await fetch('api/regenerate-character', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: prompts,
+        image: base64Image,
+      }),
+    })
+    const newImageData = await response.text()
+    setBase64Image(newImageData)
+    setIsLoadingImage(false)
   }
 
   const handleDownload = () => {
     setIsDownloading(true)
-    // const link = document.createElement('a')
-    // link.href = base64Image
-    // link.download = 'character-image-sample.png'
-    // document.body.appendChild(link)
-    // link.click()
-    // document.body.removeChild(link)
-    alert('downloading')
+    const link = document.createElement('a')
+    link.href = base64Image
+    link.download = 'character-image.png'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
     setIsDownloading(false)
   }
 
@@ -280,6 +279,7 @@ export default function ImageCreation({
             type="button"
             className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-light-2 text-primary hover:border-purple hover:text-purple disabled:opacity-50 disabled:pointer-events-none"
             onClick={() => {
+              setIsLoadingImage(false)
               if (!view.previous) {
                 onReturnHome()
               } else {
