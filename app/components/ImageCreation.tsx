@@ -157,7 +157,7 @@ export default function ImageCreation({
     }))
   }
 
-  const handleGenerateImage = () => {
+  const handleGenerateImage = async (): Promise<void> => {
     setIsLoadingImage(true)
 
     let prompts: string = ''
@@ -176,8 +176,28 @@ export default function ImageCreation({
 
     // Prompts to be used for generating the image
     const cleanedPrompts: string = prompts.replace(/,/g, ' ')
+    /*
+    const response = await fetch('api/create-character', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: cleanedPrompts,
+      }),
+    })
+    const imageData = await response.json();
+    setImage(JSON.stringify(imageData));
+   
+    setPhysicalDescription(
+      promptsTextGeneration
+        .trim()
+        .substring(0, promptsTextGeneration.length - 2)
+    )
 
-    // TODO: generate image (not regeneration)
+    setIsLoadingImage(false)
+    */ 
+    // TODO:remove this part and enable image generation 
     setTimeout(() => {
       setIsLoadingImage(false)
       setPhysicalDescription(
@@ -193,13 +213,28 @@ export default function ImageCreation({
     prompts: string = '',
     negativePrompts: string = ''
   ) => {
-    setIsLoadingImage(true)
-    setTimeout(() => {
-      alert('regenerate image')
+     /*
+      const response = await fetch('api/regenerate-character', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: prompts,
+          image: base64Image,
+        }),
+      })
+      const newImageData = await response.json();
+      setBase64Image(JSON.stringify(newImageData));
       setIsLoadingImage(false)
-    }, 2000)
+    */ 
 
-    // TODO: regenerate image using the current `base64Image`
+     // TODO: enable image regeneration
+     setIsLoadingImage(true)
+     setTimeout(() => {
+       alert('regenerate image')
+       setIsLoadingImage(false)
+     }, 2000)
   }
 
   const handleDownload = () => {
