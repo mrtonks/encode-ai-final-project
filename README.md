@@ -3,8 +3,6 @@ Welcome to the Character Designer project. Character Designer is a fine-tuned ge
 
 Our tool addresses this by streamlining the character creation process, generating both character images with image stabilization and narrative backstories through text generation based on user inputs. By fine-tuning the AI with data from trending games, Character Designer ensures the delivery of high-quality images and narratives, helping users bring their creative visions to life efficiently. 
 
-# Project Purpose
-
 # Features
 - **Character Image Generation:** create unique character images using AI, with options to customize various physical traits, image style providing description.
 - **Image Stabilization:** ensure high-quality and consistent character images through advanced image stabilization techniques.
